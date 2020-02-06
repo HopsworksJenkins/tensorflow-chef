@@ -21,33 +21,8 @@ depends "hops"
   supports os
 end
 
-
-attribute "tensorflow/user",
-          :description => "user parameter value",
-          :type => "string"
-
-attribute "tensorflow/group",
-          :description => "group parameter value",
-          :type => "string"
-
-attribute "tensorflow/dir",
-          :description => "Base installation directory",
-          :type => "string"
-
 attribute "download_url",
           :description => "url for binaries",
-          :type => "string"
-
-attribute "tensorflow/git_url",
-          :description => "url for git sourcecode for tensorflow",
-          :type => "string"
-
-attribute "tensorflow/install",
-          :description => "'src' to compile/install from source code. 'dist' to install from binaries. ",
-          :type => "string"
-
-attribute "tensorflow/mpi",
-          :description => "'true' to install openmpi support, 'false' (default) for no MPI support. ",
           :type => "string"
 
 attribute "tensorflow/mkl",
@@ -56,10 +31,6 @@ attribute "tensorflow/mkl",
 
 attribute "tensorflow/rdma",
           :description => "Used by TensorflowOnSpark. 'true' to install rdma (infiniband) support, 'false' (default) for no rdma support. ",
-          :type => "string"
-
-attribute "tensorflow/tensorrt",
-          :description => "TensorRT is used to optimize trained models and Needs GPU support and Cuda",
           :type => "string"
 
 attribute "tensorflow/custom_url",
