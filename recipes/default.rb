@@ -305,8 +305,8 @@ for python in python_versions
       set -e
       # Install packages
       yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install --no-cache-dir --upgrade jupyterlab==#{JUPYTERLAB_VERSION}
-      # Downgrade notebook to 5.7.8 (HOPSWORKS-1251)
-      yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install --no-cache-dir --upgrade notebook==5.7.8
+      yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install --no-cache-dir --upgrade notebook==6.0.3
+      yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install --no-cache-dir --upgrade prompt-toolkit==3.0.3
 
       yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install --upgrade ./hdijupyterutils ./autovizwidget ./sparkmagic
 
@@ -322,9 +322,6 @@ for python in python_versions
       # Enable nbdime
       ${CONDA_DIR}/envs/${ENV}/bin/jupyter labextension install --no-build nbdime-jupyterlab
       ${CONDA_DIR}/envs/${ENV}/bin/jupyter lab build
-
-      # DO NOT TOUCH THIS! Bad things are about to happen
-      yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install --no-cache-dir --upgrade prompt-toolkit==1.0.16
 
       # Enable kernels
       cd ${CONDA_DIR}/envs/${ENV}/lib/python#{python}/site-packages
