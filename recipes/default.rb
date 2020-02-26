@@ -240,7 +240,7 @@ for python in python_versions
 
     yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install --upgrade tqdm
 
-    nvidia-smi -L | grep -i gpu
+    which nvidia-smi
     if [ $? -eq 0 ] ; then
       ${CONDA_DIR}/bin/conda install -y -n ${ENV} -c ${PYTORCH_CHANNEL} pytorch=#{node['pytorch']['version']}=#{node["pytorch"]["python3"]["build"]} torchvision=#{node['torchvision']['version']}
     else
