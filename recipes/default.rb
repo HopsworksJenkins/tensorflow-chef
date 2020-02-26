@@ -231,18 +231,22 @@ for python in python_versions
 
     yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install --upgrade opencv-python
 
+    yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install maggy==#{node['maggy']['version']}
+
+    yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install --upgrade tqdm
+
     export PYTORCH_CHANNEL=#{node['conda']['channels']['pytorch']}
     if [ "${PYTORCH_CHANNEL}" == "" ] ; then
       PYTORCH_CHANNEL="pytorch"
     fi
 
-    yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install maggy==#{node['maggy']['version']}
-
-    yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install --upgrade tqdm
-
-    which nvidia-smi
-    if [ $? -eq 0 ] ; then
-      ${CONDA_DIR}/bin/conda install -y -n ${ENV} -c ${PYTORCH_CHANNEL} pytorch=#{node['pytorch']['version']}=#{node["pytorch"]["python3"]["build"]} torchvision=#{node['torchvision']['version']}
+    if [ -f /usr/local/cuda/version.txt ]  ; then
+      nvidia-smi -L | grep -i gpu
+      if [ $? -eq 0 ] ; then
+        ${CONDA_DIR}/bin/conda install -y -n ${ENV} -c ${PYTORCH_CHANNEL} pytorch=#{node['pytorch']['version']}=#{node["pytorch"]["python3"]["build"]} torchvision=#{node['torchvision']['version']}
+      else
+        ${CONDA_DIR}/bin/conda install -y -n ${ENV} -c ${PYTORCH_CHANNEL} pytorch==#{node['pytorch']['version']} torchvision==#{node['torchvision']['version']} cpuonly
+      fi
     else
       ${CONDA_DIR}/bin/conda install -y -n ${ENV} -c ${PYTORCH_CHANNEL} pytorch==#{node['pytorch']['version']} torchvision==#{node['torchvision']['version']} cpuonly
     fi
