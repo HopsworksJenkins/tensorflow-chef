@@ -116,6 +116,10 @@ bash 'install Node.js' do
   EOF
 end
 
+magic_shell_environment 'PATH' do
+  value "$PATH:/usr/local/bin"
+end
+
 # Download Hopsworks jupyterlab_git plugin
 if node['install']['enterprise']['install'].casecmp? "true"
   cached_file = "jupyterlab_git-#{node['conda']['jupyter']['jupyterlab-git']['version']}-py3-none-any.whl"
