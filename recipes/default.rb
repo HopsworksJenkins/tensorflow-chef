@@ -116,10 +116,6 @@ bash 'install Node.js' do
   EOF
 end
 
-magic_shell_environment 'PATH' do
-  value "$PATH:/usr/local/bin"
-end
-
 # Download Hopsworks jupyterlab_git plugin
 if node['install']['enterprise']['install'].casecmp? "true"
   cached_file = "jupyterlab_git-#{node['conda']['jupyter']['jupyterlab-git']['version']}-py3-none-any.whl"
@@ -345,6 +341,7 @@ for python in python_versions
                      'ENV' => envName,
                      'GIT_PYTHON_REFRESH' => 's'})
       code <<-EOF
+      export PATH=$PATH:/usr/local/bin
       ${CONDA_DIR}/envs/${ENV}/bin/jupyter labextension install @jupyterlab/git@#{upstream_extension_version}
       yes | ${CONDA_DIR}/envs/${ENV}/bin/pip install --no-cache-dir --upgrade #{::Dir.home(node['conda']['user'])}/jupyterlab_git-#{node['conda']['jupyter']['jupyterlab-git']['version']}-py3-none-any.whl
       ${CONDA_DIR}/envs/${ENV}/bin/jupyter serverextension enable --sys-prefix --py jupyterlab_git
