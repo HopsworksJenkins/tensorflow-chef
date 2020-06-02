@@ -3,8 +3,6 @@ include_attribute "kagent"
 
 default["tensorflow"]["version"]                 = "1.15.0"
 default['tensorflow']['serving']['version']      = "1.15.0"
-default['tensorflow']['serving']['url']          = "#{node['download_url']}/serving/tensorflow-model-server_#{node['tensorflow']['serving']['version']}_all.deb"
-
 
 #
 # TensorFlow/PyTorch example notebooks and datasets
@@ -12,12 +10,6 @@ default['tensorflow']['serving']['url']          = "#{node['download_url']}/serv
 default['tensorflow']['examples_version']  = node['install']['version']
 default['tensorflow']['hopstfdemo_dir'] = "tensorflow_demo"
 default['tensorflow']['hopstfdemo_url'] = "#{node['download_url']}/tensorflow/#{node['tensorflow']['examples_version']}/demo.tar.gz"
-
-# Comma separated list of supported cuda versions (~ # of patches )
-default['cuda']['versions']            = "9.0.176_384.81~2,10.0.130_410.48~1"
-default['cuda']['base_url']            = "#{node['download_url']}/cuda"
-
-default['cuda']['base_dir']                 = "/usr/local"
 
 default['cuda']['accept_nvidia_download_terms']        = "false"
 default['cuda']['skip_test']           = "false"
@@ -63,13 +55,6 @@ default['rocm']['dist']['debian']        = "#{node['download_url']}/rocm/debian/
 #
 default['rocm']['dir']           = node['install']['dir'].empty? ? "/srv/hops" : node['install']['dir']
 default['rocm']['base_dir']      = node['rocm']['dir'] + "/rocm"
-
-default['tensorflow']['mkl']           = "false"
-default['tensorflow']['rdma']          = "false"
-
-default['tensorflow']['need_cuda']     = 0
-default['tensorflow']['need_mkl']      = 0
-default['tensorflow']['need_rdma']     = 0
 
 # Feature Store example notebooks and datasets
 #
